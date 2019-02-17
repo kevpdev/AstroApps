@@ -5,15 +5,19 @@ package fr.dragonpirce.astroapps.service;
 
 import java.util.List;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.query.Procedure;
 
-import fr.dragonpirce.astroapps.dao.PlaneteDao;
 import fr.dragonpirce.astroapps.model.Planete;
+import fr.dragonpirce.astroapps.repository.PlaneteRepository;
 
 /**
  * @author nivek
@@ -23,17 +27,16 @@ import fr.dragonpirce.astroapps.model.Planete;
 public class PlaneteServiceImpl implements PlaneteService {
 
 	@Autowired
-	private PlaneteDao planeteDao;
+	private PlaneteRepository planeteRepository;
 	
 	/* (non-Javadoc)
 	 * @see fr.dragonpirce.astroapps.service.PlaneteService#getPlanetes()
 	 */
 	@GET
-	@Path("/")
-	@Procedure(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public List<Planete> getPlanetes() {
-		return planeteDao.getPlanetes();
+		return (List<Planete>) planeteRepository.findAll();
 	}
 
 	/* (non-Javadoc)
@@ -41,42 +44,59 @@ public class PlaneteServiceImpl implements PlaneteService {
 	 */
 	@GET
 	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Override
-	public Planete getPlaneteById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Planete getPlaneteById(@PathParam("id") long id) {
+		return planeteRepository.findById(id).get();
 	}
 
 	/* (non-Javadoc)
 	 * @see fr.dragonpirce.astroapps.service.PlaneteService#getPlaneteByName(java.lang.String)
 	 */
+	@GET
+	@Path("/{name}")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Override
-	public Planete getPlaneteByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public Planete getPlaneteByName(@PathParam("name") String name) {
+		return planeteRepository.findByNom(name);
 	}
 
 	/* (non-Javadoc)
 	 * @see fr.dragonpirce.astroapps.service.PlaneteService#updatePlanete(fr.dragonpirce.astroapps.model.Planete)
 	 */
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public boolean updatePlanete(Planete planete) {
-		// TODO Auto-generated method stub
+		if(planeteRepository.existsById(planete.getIdPlanete())) {
+			 planeteRepository.save(planete);
+			 return true;
+		}		
 		return false;
+
 	}
 
 	/* (non-Javadoc)
 	 * @see fr.dragonpirce.astroapps.service.PlaneteService#deletePlanete(fr.dragonpirce.astroapps.model.Planete)
 	 */
+	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public boolean deletePlanete(Planete planete) {
-		// TODO Auto-generated method stub
+		if(planeteRepository.existsById(planete.getIdPlanete())) {
+			planeteRepository.deleteById(planete.getIdPlanete());
+			return true;
+		}
 		return false;
 	}
-
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public boolean addPlanete(Planete planete) {
-		// TODO Auto-generated method stub
+		Planete p = planeteRepository.save(planete);
+		if (p != null) {
+			return true;
+		}
 		return false;
 	}
 

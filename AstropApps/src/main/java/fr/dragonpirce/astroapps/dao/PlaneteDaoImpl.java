@@ -22,10 +22,10 @@ public class PlaneteDaoImpl implements PlaneteDao {
 
 	public PlaneteDaoImpl() {
 		super();
-		this.listPlanetes = new ArrayList<Planete>(); {
-		this.listPlanetes.add(new Planete(1, "Terre", TypePlanete.tellurique, 0, 1, "texte ...", Categorie.planete, ""));
-		this.listPlanetes.add(new Planete(2, "Jupiter", TypePlanete.gazeuse, 3, 72, "texte ...", Categorie.planete, ""));
-		this.listPlanetes.add(new Planete(3, "Pluton", TypePlanete.tellurique, 0, 5, "texte ...", Categorie.naine, ""));
+		this.listPlanetes = new ArrayList<>(); {
+		this.listPlanetes.add(new Planete(1, "Terre", TypePlanete.tellurique, 0, 1, "texte Ter...", Categorie.planete, ""));
+		this.listPlanetes.add(new Planete(2, "Jupiter", TypePlanete.gazeuse, 3, 72, "texte Jup...", Categorie.planete, ""));
+		this.listPlanetes.add(new Planete(3, "Pluton", TypePlanete.tellurique, 0, 5, "texte Plu...", Categorie.naine, ""));
 			
 		};
 	}

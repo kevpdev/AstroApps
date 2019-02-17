@@ -3,6 +3,14 @@
  */
 package fr.dragonpirce.astroapps.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import fr.dragonpirce.astroapps.model.enums.Categorie;
 import fr.dragonpirce.astroapps.model.enums.TypePlanete;
 
@@ -10,28 +18,43 @@ import fr.dragonpirce.astroapps.model.enums.TypePlanete;
  * @author nivek
  *
  */
+@Entity
+@Table(name="PLANETE")
 public class Planete {
-	
+	@Id
+	@GeneratedValue
+	@Column(name="id_planete")
 	private long idPlanete;
+	
+	@Column(name="nom", nullable = false)
 	private String nom;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="type_planete")
 	private TypePlanete typePlanete;
+	
+	@Column(name="nb_anneau")
 	private int nbAnneau;
+	
+	@Column(name="nb_satellite")
 	private int nbSatellite;
+	
+	@Column(name="description")
 	private String description;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="categorie")
 	private Categorie categorie;
-	private String urlImage;
 	
-	
+	@Column(name="url_image")
+	private String urlImage;	
 	
 	/**
 	 * 
 	 */
 	public Planete() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 	
 	/**
@@ -57,9 +80,6 @@ public class Planete {
 		this.categorie = categorie;
 		this.urlImage = urlImage;
 	}
-
-
-
 
 	/**
 	 * @return the idPlanete
