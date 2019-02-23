@@ -2,9 +2,10 @@ package fr.dragonpirce.astroapps;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan("fr.dragonpirce.astroapps")
 public class AstropAppsApplication {
 
 	public static void main(String[] args) {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.dragonpirce.astroapps.service;
+package fr.dragonpirce.astroapps.service.impl;
 
 import java.util.List;
 
@@ -15,14 +15,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import fr.dragonpirce.astroapps.model.Planete;
 import fr.dragonpirce.astroapps.repository.PlaneteRepository;
+import fr.dragonpirce.astroapps.service.PlaneteService;
 
 /**
  * @author nivek
  *
  */
+
 @Path("/planetes")
 public class PlaneteServiceImpl implements PlaneteService {
 
@@ -54,7 +57,7 @@ public class PlaneteServiceImpl implements PlaneteService {
 	 * @see fr.dragonpirce.astroapps.service.PlaneteService#getPlaneteByName(java.lang.String)
 	 */
 	@GET
-	@Path("/{name}")
+	@Path("/name/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public Planete getPlaneteByName(@PathParam("name") String name) {
